@@ -1,1 +1,1 @@
-# wustl_spinlab_status
+# wustl-spinlab-status
