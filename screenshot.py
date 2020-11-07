@@ -105,9 +105,10 @@ else:
     status = "Other"
 
 #Prep for file outpout
-out_time = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
+out_time = datetime.now()
+img_time = out_time.strftime('%Y-%m-%d-%H-%M-%S')
 out_dir = r'C:\Users\polarice\Documents\Github\wustl-spinlab-status'
-out_path = r'%s\shots\%s.png'%(out_dir, out_time)
+out_path = r'%s\shots\%s.png'%(out_dir, img_time)
 
 #Save color image
 color_crop = img_color[crop_coords[0]:crop_coords[1], crop_coords[2]:crop_coords[3]]
@@ -115,5 +116,6 @@ cv2.imwrite(out_path, color_crop)
 cv2.imwrite(r'%s\assets\current.png'%(out_dir), color_crop)
 
 #Append current status to file
+temp_time = out_time.strftime('%Y-%m-%d %H:%M:%S')
 with open(r'%s\temp_data.csv'%(out_dir), "a") as temp_file:
-    temp_file.write("%s,%2.5f,%s"%(out_time, temp, status))
+    temp_file.write("%s,%2.5f,%s\n"%(out_time, temp, status))
