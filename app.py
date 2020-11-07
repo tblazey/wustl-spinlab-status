@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 #Load libraries
-from datetime import datetime, timedelta
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -117,7 +116,7 @@ app.layout = html.Div(
                 dcc.Tabs([
                     dcc.Tab(label='Latest Cyrostatus Page',
                         children=[
-                            html.Img(src=app.get_asset_url('2020-08-28-18-56-27.png'),
+                            html.Img(src=app.get_asset_url('current.png'),
                                     style={'max-width': '100%',
                                            'max-height':'100%',
                                            'padding-top':'2vw',
