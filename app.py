@@ -51,7 +51,7 @@ tp.update_yaxes(showgrid = True,
                  ticks = 'outside',
                  tick0 = 0.5,
                  nticks = 6,
-                 range = [0.0, 2.5],
+                 range = [0.0, 5.5],
                  fixedrange = True)
 tp.update_layout(dragmode = 'pan',
                   margin={'t':40, 'b':140},
@@ -117,7 +117,7 @@ app.layout = html.Div(
                 dcc.Tabs([
                     dcc.Tab(label='Latest Cyrostatus Page',
                         children=[
-                            html.Img(src=app.get_asset_url('current.png'),
+                            html.Img(src=app.get_asset_url('current.png?dummy=%i'%(np.random.randint(0, 1E6))),
                                     style={'max-width': '100%',
                                            'max-height':'100%',
                                            'padding-top':'2vw',

@@ -89,12 +89,24 @@ img_temp = img_gray[temp_coords[0]:temp_coords[1],
 img_status = img_gray[status_coords[0]:status_coords[1],
                       status_coords[2]:status_coords[3]]
                     
-#Run OCR to extract temperature and status
-temp_str = pytesseract.image_to_string(Image.fromarray(img_temp))
+#Run OCR to extract status 
 status_str = pytesseract.image_to_string(Image.fromarray(img_status)).split()
 
-#Get numeric temperature
-temp = float(re.sub("[^\d.]+", "", temp_str))
+#Process the image a bit
+img_temp = cv2.resize(img_temp, (0, 0), fx = 2, fy = 2)
+
+#Run OCR and see if it works
+temp_str = pytesseract.image_to_string(img_temp, config="--psm 12 -c tessedit_char_whitelist=0123456789.K").strip().replace('K', '')
+
+#See if thresholding helps
+if len(temp_str) == 0:
+    _, img_thr = cv2.threshold(cv2.bitwise_not(img_temp), 70, 255, cv2.THRESH_BINARY)
+    temp_str = pytesseract.image_to_string(img_thr, config="--psm 12 -c tessedit_char_whitelist=0123456789.K").strip().replace('K', '')
+
+#Place decimal play if we don't have one. A real hack but seems to work for now
+if '.' not in temp_str and len(temp_str) >= 2:
+    temp_str = temp_str[0] + '.' + temp_str[1::]
+temp = float(temp_str)
 
 #Make variable for status
 if "Regen" in status_str:
