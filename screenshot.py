@@ -11,7 +11,6 @@ import time
 import win32con
 import win32gui
 from datetime import datetime
-import re
 
 #Function to return list of windows
 def windowEnumerationHandler(hwnd, windows):
@@ -124,7 +123,6 @@ out_path = r'%s\shots\%s.png'%(out_dir, img_time)
 
 #Save color image
 color_crop = img_color[crop_coords[0]:crop_coords[1], crop_coords[2]:crop_coords[3]]
-cv2.imwrite(out_path, color_crop)
 cv2.imwrite(r'%s\assets\current.png'%(out_dir), color_crop)
 
 #Append current status to file
